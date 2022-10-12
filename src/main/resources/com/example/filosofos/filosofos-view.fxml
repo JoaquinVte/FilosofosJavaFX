@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="400.0" minWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filosofos.controller.Controller">
+   <children>
+      <Label fx:id="f1" alignment="CENTER" layoutX="171.0" layoutY="14.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Filosofo1" />
+      <Label fx:id="f3" alignment="CENTER" layoutX="268.0" layoutY="311.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Filosofo3" />
+      <Label fx:id="f4" alignment="CENTER" layoutX="73.0" layoutY="311.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Filosofo4" />
+      <Label fx:id="f2" alignment="CENTER" layoutX="327.0" layoutY="149.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Filosofo2" />
+      <Label fx:id="f5" alignment="CENTER" layoutX="14.0" layoutY="149.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Filosofo5" />
+      <Label fx:id="t1" alignment="CENTER" layoutX="89.0" layoutY="90.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Tenedor1" />
+      <Label fx:id="t2" alignment="CENTER" layoutX="230.0" layoutY="90.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Tenedor2" />
+      <Label fx:id="t3" alignment="CENTER" layoutX="292.0" layoutY="241.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Tenedor3" />
+      <Label fx:id="t4" alignment="CENTER" layoutX="170.0" layoutY="279.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Tenedor4" />
+      <Label fx:id="t5" alignment="CENTER" layoutX="58.0" layoutY="233.0" minHeight="25.0" minWidth="80.0" style="-fx-background-color: white;" text="Tenedor5" />
+      <Button layoutX="170.0" layoutY="360.0" mnemonicParsing="false" onAction="#startButtonClic" onZoomFinished="#startButtonClic" text="Start" />
+   </children>
+</AnchorPane>
