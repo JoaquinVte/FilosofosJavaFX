@@ -13,4 +13,6 @@ module com.example.filosofos {
     opens com.example.filosofos.controller to javafx.fxml;
     exports com.example.filosofos.view;
     opens com.example.filosofos.view to javafx.fxml;
+
+
 }

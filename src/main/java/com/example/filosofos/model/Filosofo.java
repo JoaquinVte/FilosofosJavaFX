@@ -1,8 +1,6 @@
 package com.example.filosofos.model;
 
 import com.example.filosofos.view.RegionColor;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -20,13 +18,10 @@ public class Filosofo {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private final int tiempoDescanso = 3000;
-    private final int tiempoComiendo = 1000;
-    private final int tiempoEsperaAntesComer=100;
-    private Label labelFilosofo;
-    private Tenedor tenedor1;
-    private Tenedor tenedor2;
-    private String id;
+    private final Label labelFilosofo;
+    private final Tenedor tenedor1;
+    private final Tenedor tenedor2;
+    private final String id;
 
     public Filosofo(String id, Label labelFilosofo, Tenedor tenedor1, Tenedor tenedor2) {
         this.labelFilosofo = labelFilosofo;
@@ -52,7 +47,7 @@ public class Filosofo {
 
         public ComerTask() {
             valueProperty().addListener((observableValue, regionColors, newValues) -> {
-                for(RegionColor newValue : newValues)
+                for (RegionColor newValue : newValues)
                     newValue.getRegion().setBackground(new Background(new BackgroundFill(newValue.getColor(), new CornerRadii(5.0), new Insets(-5.0))));
             });
         }
@@ -61,38 +56,28 @@ public class Filosofo {
         protected List<RegionColor> call() throws Exception {
 
             while (true) {
-                do {
-                    if(tenedor1.soltar(Filosofo.this))
-                        updateValue(Arrays.asList(new RegionColor(tenedor1.getLabel(), Color.WHITE),new RegionColor(labelFilosofo, Color.WHITE)));
-                    if(tenedor2.soltar(Filosofo.this))
-                        updateValue(Arrays.asList(new RegionColor(tenedor2.getLabel(), Color.WHITE),new RegionColor(labelFilosofo, Color.WHITE)));
 
-                    if (tenedor1.coger(Filosofo.this))
-                        updateValue(Arrays.asList(new RegionColor(tenedor1.getLabel(), Color.RED),new RegionColor(labelFilosofo, Color.RED)));
+                synchronized (tenedor1) {
+                    synchronized (tenedor2) {
+                        updateValue(Arrays.asList(new RegionColor(tenedor1.getLabel(), Color.RED), new RegionColor(labelFilosofo, Color.RED),new RegionColor(tenedor2.getLabel(), Color.RED)));
 
+                        int tiempoEsperaAntesComer = 500;
+                        Thread.sleep(tiempoEsperaAntesComer);
 
-                    if (tenedor2.coger(Filosofo.this)) {
-                        updateValue(Arrays.asList(new RegionColor(tenedor2.getLabel(), Color.RED),new RegionColor(labelFilosofo, Color.RED)));
+                        LOGGER.log(Level.INFO, "Come el filosofo " + com.example.filosofos.model.Filosofo.this);
+                        updateValue(Arrays.asList(new RegionColor(labelFilosofo, Color.GREEN),
+                                new RegionColor(tenedor1.getLabel(), Color.GREEN),
+                                new RegionColor(tenedor2.getLabel(), Color.GREEN)));
+
+                        int tiempoComiendo = 1000;
+                        Thread.sleep(tiempoComiendo);
                     }
-
-                } while (tenedor1.getFilosofo() != Filosofo.this || tenedor2.getFilosofo() != Filosofo.this);
-
-                Thread.sleep(tiempoEsperaAntesComer);
-
-                LOGGER.log(Level.INFO, "Come el filosofo " + Filosofo.this);
-                updateValue(Arrays.asList(new RegionColor(labelFilosofo, Color.GREEN),
-                        new RegionColor(tenedor1.getLabel(), Color.GREEN),
-                        new RegionColor(tenedor2.getLabel(), Color.GREEN)));
-
-                Thread.sleep(tiempoComiendo);
-
-                tenedor1.soltar(Filosofo.this);
-                tenedor2.soltar(Filosofo.this);
-
+                }
                 updateValue(Arrays.asList(new RegionColor(labelFilosofo, Color.WHITE),
                         new RegionColor(tenedor1.getLabel(), Color.WHITE),
                         new RegionColor(tenedor2.getLabel(), Color.WHITE)));
 
+                int tiempoDescanso = 3000;
                 Thread.sleep(tiempoDescanso);
             }
         }

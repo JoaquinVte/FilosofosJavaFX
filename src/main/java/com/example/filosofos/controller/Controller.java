@@ -45,10 +45,10 @@ public class Controller {
         Tenedor tenedor5 = new Tenedor(t5);
 
         filosofos.add(new Filosofo("1",f1, tenedor1, tenedor2));
-        filosofos.add(new Filosofo("2",f2, tenedor2, tenedor3));
+        filosofos.add(new Filosofo("2",f2, tenedor3, tenedor2));
         filosofos.add(new Filosofo("3",f3, tenedor3, tenedor4));
         filosofos.add(new Filosofo("4",f4, tenedor4, tenedor5));
-        filosofos.add(new Filosofo("5",f5, tenedor5, tenedor1));
+        filosofos.add(new Filosofo("5",f5, tenedor1, tenedor5));
 
 
     }
